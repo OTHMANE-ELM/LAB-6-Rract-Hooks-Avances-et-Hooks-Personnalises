@@ -1,70 +1,121 @@
-# Getting Started with Create React App
+# ⚛️ TP6 — Hooks Avancés & Hooks Personnalisés React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> **TP6** du cours *Développement Front-End moderne avec React*.  
+> Ce TP explore les hooks avancés de React — `useReducer`, `useRef` — et la création de **hooks personnalisés** pour encapsuler et réutiliser la logique métier.
 
-## Available Scripts
+---
+-
 
-In the project directory, you can run:
+## 🎯 Objectif pédagogique
 
-### `npm start`
+Ce TP t'apprend à :
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- ✅ Gérer un état complexe avec **`useReducer`** (pattern action/reducer)
+- ✅ Manipuler le DOM directement avec **`useRef`** (focus, comptage de rendus)
+- ✅ Créer des **hooks personnalisés** (`useFetch`, `useTimer`) pour réutiliser de la logique
+- ✅ Comprendre quand préférer `useReducer` à `useState`
+- ✅ Structurer son projet en séparant la logique des composants visuels
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🧠 Concepts couverts
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| Hook / Concept | Description |
+|---|---|
+| `useReducer` | Gérer un état complexe via un reducer (action → nouvel état) |
+| `useRef` – DOM | Accéder à un élément DOM et le manipuler (ex: focus) |
+| `useRef` – valeur persistante | Stocker une valeur sans déclencher de re-render |
+| `useEffect` | Déclencher des effets de bord (fetch, timer, abonnements) |
+| Hook personnalisé `useFetch` | Encapsuler la logique de chargement de données distantes |
+| Hook personnalisé `useTimer` | Encapsuler la logique d'un chronomètre start/stop/reset |
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🗂️ Étapes du TP
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Étape 1 — Préparer le projet
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+### Étape 2 — Créer un compteur avec `useReducer`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Étape 3 — Utiliser `useRef` pour donner le focus à un champ texte
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Étape 4 — Compter les rendus avec `useRef`
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Étape 5 — Créer un Hook personnalisé `useFetch`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Étape 6 — Utiliser `useFetch` pour afficher une liste
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+### Étape 7 — Créer un Timer (Hook personnalisé `useTimer`)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+**Pourquoi `useRef` pour l'intervalle ?**  
+L'identifiant retourné par `setInterval` doit persister entre les rendus pour pouvoir appeler `clearInterval`. Utiliser `useState` ne serait pas approprié car mettre à jour cet ID déclencherait un re-render inutile.
 
-### Deployment
+--
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🚀 Installation & Lancement
+
+```bash
+# 1. Créer le projet
+npm create vite@latest tp6-react -- --template react
+cd tp6-react
+
+# 2. Installer les dépendances
+npm install
+
+# 3. Lancer le serveur de développement
+npm run dev
+
+# 4. Ouvrir dans le navigateur
+# → http://localhost:5173
+```
+
+---
+
+## 📁 Structure des fichiers
+
+```
+tp6-react/
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── Counter.jsx          # Étape 2 – useReducer
+│   │   ├── FocusInput.jsx       # Étape 3 – useRef (focus DOM)
+│   │   ├── RenderCounter.jsx    # Étape 4 – useRef (comptage rendus)
+│   │   ├── UserList.jsx         # Étape 6 – consommateur de useFetch
+│   │   └── Timer.jsx            # Étape 7 – consommateur de useTimer
+│   ├── hooks/
+│   │   ├── counterReducer.js    # Étape 2 – reducer du compteur
+│   │   ├── useFetch.js          # Étape 5 – hook personnalisé fetch
+│   │   └── useTimer.js          # Étape 7 – hook personnalisé timer
+│   ├── App.jsx                  # Composant racine
+│   ├── main.jsx                 # Point d'entrée
+│   └── index.css
+├── index.html
+├── package.json
+└── vite.config.js
+```
+
+---
+
+
+## 🎬 Démonstration vidéo
+
+
+
+https://github.com/user-attachments/assets/2c6d53de-ba99-42d1-97d5-407a45f64ad0
+
+
+
+> 💬 *Ce TP fait partie du cours "Développement Front-End moderne avec React". Consulte le TP5 pour les bases de `useState`, les formulaires et le Context API.*
